@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7P's of Sport Marketing Activity</title>
+  <style>
+    :root {
+      --product: #e1f5fe;
+      --price: #fff8e1;
+      --place: #e8f5e9;
+      --promotion: #fce4ec;
+      --people: #f3e5f5;
+      --process: #ede7f6;
+      --evidence: #f9fbe7;
+      --card-gradient: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      --card-shadow: rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #fafafa; }
+    h1 { text-align: center; font-size: 1.8rem; margin-bottom: 10px; }
+    p { text-align: center; margin-bottom: 20px; }
+    #container { display: flex; gap: 20px; }
+    #items { width: 22%; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px var(--card-shadow); max-height: 80vh; overflow-y: auto; }
+    .item {
+      padding: 12px; margin: 8px 0;
+      background: var(--card-gradient); cursor: grab;
+      border: 2px solid transparent; border-radius: 8px;
+      box-shadow: 0 2px 6px var(--card-shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 0.9rem; font-weight: bold;
+    }
+    .item.dragging { opacity: 0.6; transform: scale(1.05); box-shadow: 0 6px 16px var(--card-shadow); }
+    .item.correct { border-color: #4caf50; background: #e8f5e9; }
+    .item.incorrect { border-color: #f44336; background: #ffebee; }
+    #map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; flex-grow: 1; }
+    .stage {
+      padding: 10px; border-radius: 8px; min-height: 200px;
+      border: 2px dashed #bbb; transition: background 0.2s, border-color 0.2s;
+    }
+    .stage h2 {
+      margin: 0 0 8px; padding: 4px;
+      background: rgba(255,255,255,0.8); border-radius: 4px;
+      font-size: 1rem; text-align: center;
+    }
+    .stage.over { border-color: #333; background: rgba(0,0,0,0.03); }
+    .stage[data-stage="product"] { background: var(--product); }
+    .stage[data-stage="price"] { background: var(--price); }
+    .stage[data-stage="place"] { background: var(--place); }
+    .stage[data-stage="promotion"] { background: var(--promotion); }
+    .stage[data-stage="people"] { background: var(--people); }
+    .stage[data-stage="process"] { background: var(--process); }
+    .stage[data-stage="evidence"] { background: var(--evidence); }
+    #result { display: none; margin-top: 20px; padding: 12px; border-radius: 8px; font-size: 1.1rem; text-align: center; background: #fff; box-shadow: 0 2px 8px var(--card-shadow); }
+    #result.correct { border: 2px solid #4caf50; color: #2e7d32; }
+    #result.incorrect { border: 2px solid #f44336; color: #c62828; }
+  </style>
+</head>
+<body>
+  <h1>7P's of Sport Marketing Activity</h1>
+  <p>Drag each example into the correct "P" category. When all are placed, you'll see your score.</p>
+  <div id="container">
+    <div id="items">
+      <!-- Product -->
+      <div class="item" draggable="true" data-correct="product">Official Team Merchandise</div>
+      <div class="item" draggable="true" data-correct="product">Season Ticket Packages</div>
+      <div class="item" draggable="true" data-correct="product">Digital Content Subscriptions</div>
+      <div class="item" draggable="true" data-correct="product">Player Trial Experiences</div>
+      <!-- Price -->
+      <div class="item" draggable="true" data-correct="price">Dynamic Ticket Pricing</div>
+      <div class="item" draggable="true" data-correct="price">Early-Bird Discounts</div>
+      <div class="item" draggable="true" data-correct="price">Premium Seat Upgrade Fee</div>
+      <div class="item" draggable="true" data-correct="price">Pay-Per-View Pricing</div>
+      <!-- Place -->
+      <div class="item" draggable="true" data-correct="place">Stadium Seating Layout</div>
+      <div class="item" draggable="true" data-correct="place">Online Ticket Portal</div>
+      <div class="item" draggable="true" data-correct="place">Official Team Store</div>
+      <div class="item" draggable="true" data-correct="place">Mobile App Distribution</div>
+      <!-- Promotion -->
+      <div class="item" draggable="true" data-correct="promotion">Social Media Campaign</div>
+      <div class="item" draggable="true" data-correct="promotion">Post-Game Highlights</div>
+      <div class="item" draggable="true" data-correct="promotion">Email Newsletter</div>
+      <div class="item" draggable="true" data-correct="promotion">Sponsorship Activation</div>
+      <!-- People -->
+      <div class="item" draggable="true" data-correct="people">Community Outreach Staff</div>
+      <div class="item" draggable="true" data-correct="people">Matchday Security Team</div>
+      <div class="item" draggable="true" data-correct="people">Coaching Staff</div>
+      <div class="item" draggable="true" data-correct="people">Volunteer Event Support</div>
+      <!-- Process -->
+      <div class="item" draggable="true" data-correct="process">Mobile Check-In System</div>
+      <div class="item" draggable="true" data-correct="process">Concession Order Flow</div>
+      <div class="item" draggable="true" data-correct="process">Ticket Refund Procedure</div>
+      <div class="item" draggable="true" data-correct="process">Merchandise Online Ordering</div>
+      <!-- Physical Evidence -->
+      <div class="item" draggable="true" data-correct="evidence">Venue Signage & Banners</div>
+      <div class="item" draggable="true" data-correct="evidence">Matchday Program Booklet</div>
+      <div class="item" draggable="true" data-correct="evidence">Stadium Tours</div>
+      <div class="item" draggable="true" data-correct="evidence">On-Site Branding on Jerseys</div>
+    </div>
+    <div id="map">
+      <div class="stage" data-stage="product"><h2>Product</h2></div>
+      <div class="stage" data-stage="price"><h2>Price</h2></div>
+      <div class="stage" data-stage="place"><h2>Place</h2></div>
+      <div class="stage" data-stage="promotion"><h2>Promotion</h2></div>
+      <div class="stage" data-stage="people"><h2>People</h2></div>
+      <div class="stage" data-stage="process"><h2>Process</h2></div>
+      <div class="stage" data-stage="evidence"><h2>Physical Evidence</h2></div>
+    </div>
+  </div>
+  <div id="result"></div>
+  <script>
+    const items = document.querySelectorAll('.item');
+    const stages = document.querySelectorAll('.stage');
+    const resultDiv = document.getElementById('result');
+    const total = items.length;
+    let placed = 0;
+
+    function evaluate() {
+      let correct = 0;
+      items.forEach(el => {
+        const target = el.parentElement.getAttribute('data-stage');
+        if (el.getAttribute('data-correct') === target) {
+          el.classList.add('correct'); correct++;
+        } else el.classList.add('incorrect');
+      });
+      const score = Math.round((correct/total)*100);
+      resultDiv.style.display = 'block';
+      resultDiv.className = '';
+      if (score >= 80) {
+        resultDiv.classList.add('correct');
+        resultDiv.textContent = `Great job! ${score}% correct.`;
+      } else if (score >= 50) {
+        resultDiv.classList.add('correct');
+        resultDiv.textContent = `Good effort! ${score}% correct.`;
+      } else {
+        resultDiv.classList.add('incorrect');
+        resultDiv.textContent = `You scored ${score}%. Try again!`;
+      }
+    }
+
+    items.forEach(i => {
+      i.addEventListener('dragstart', () => i.classList.add('dragging'));
+      i.addEventListener('dragend', () => i.classList.remove('dragging'));
+    });
+    stages.forEach(s => {
+      s.addEventListener('dragover', e => { e.preventDefault(); s.classList.add('over'); });
+      s.addEventListener('dragleave', () => s.classList.remove('over'));
+      s.addEventListener('drop', () => {
+        const drag = document.querySelector('.dragging');
+        s.classList.remove('over');
+        s.appendChild(drag);
+        placed++;
+        if (placed === total) evaluate();
+      });
+    });
+  </script>
+</body>
+</html>
